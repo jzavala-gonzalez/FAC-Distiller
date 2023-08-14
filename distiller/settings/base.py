@@ -144,8 +144,14 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# db_config_dict = dj_database_url.config(default='postgres://postgres:postgres@127.0.0.1/distiller')
+db_config_dict = {'NAME': 'distiller',
+    'USER': 'postgres', 'PASSWORD': 'postgres',
+    'HOST': 'db', 'PORT': '', 'CONN_MAX_AGE': 0,
+    'ENGINE': 'django.db.backends.postgresql_psycopg2'}
+print('db_config_dict', db_config_dict)
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:postgres@127.0.0.1/distiller')
+    'default': db_config_dict
 }
 
 CHROME_DRIVER_LOCATION = os.path.join('/usr/local/bin/chromedriver')

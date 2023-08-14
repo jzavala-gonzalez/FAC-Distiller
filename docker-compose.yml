@@ -27,3 +27,5 @@ services:
       - ./db:/var/lib/postgresql
     environment:
       POSTGRES_DB: distiller
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

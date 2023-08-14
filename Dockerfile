@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM --platform=linux/amd64 python:3.7
 
 RUN apt-get update && apt-get install -y postgresql-client
 

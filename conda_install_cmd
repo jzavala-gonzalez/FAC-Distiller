@@ -1,0 +1,13 @@
+conda install -c conda-forge selenium 'django>=3.0.2' psycopg2-binary django-localflavor pandas whitenoise dj-database-url smart-open django-widget-tweaks gunicorn gevent s3fs=0.4.0 requests pytz scrapy
+python -m pip install django-composite-foreignkey pdfquery spacy-lookup django-static-fontawesome
+conda install -c conda-forge pytest-django pytest mypy django-stubs
+# Missing the en-core-web-sm download
+
+To run the app (instead of using a manually-installed pyenv on your laptop):
+docker-compose run --service-ports app
+and then go to localhost:8000/ or localhost:8000/admin
+
+To run the crawl, run this inside the 'app' container:
+scrapy crawl fac -a auditee_state=PR -o test.json
+
+Note: Falta ajustar el command

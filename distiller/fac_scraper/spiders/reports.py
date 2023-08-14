@@ -31,6 +31,7 @@ class FACSpider(Spider):
         open_pages=False,
         date_processed_from=None,
         date_processed_to=None,
+        auditee_state=None,
         **kwargs
     ):
         super(FACSpider, self).__init__(*args, **kwargs)
@@ -41,11 +42,13 @@ class FACSpider(Spider):
         self.date_processed_from = datetime.strptime(date_processed_from, '%m/%d/%Y') if date_processed_from else None
         self.date_processed_to = datetime.strptime(date_processed_to, '%m/%d/%Y') if date_processed_to else None
 
-        if not cfda and not (self.date_processed_from and self.date_processed_to):
-            raise ValueError('A CFDA number/prefix or filing date range is required')
+        # if not cfda and not (self.date_processed_from and self.date_processed_to):
+        #     raise ValueError('A CFDA number/prefix or filing date range is required')
 
         #self.audit_year = audit_year or datetime.now().year
         self.audit_year = audit_year or "All Years"
+
+        self.auditee_state = auditee_state if auditee_state else None # 'PR'
 
         self.cfda_options = None
         if cfda:
@@ -94,6 +97,9 @@ class FACSpider(Spider):
         if self.date_processed_from and self.date_processed_to:
             filter_options["ctl00$MainContent$UcSearchFilters$DateProcessedControl$FromDate"] = self.date_processed_from.strftime('%m/%d/%Y')
             filter_options["ctl00$MainContent$UcSearchFilters$DateProcessedControl$ToDate"] = self.date_processed_to.strftime('%m/%d/%Y')
+
+        if self.auditee_state:
+            filter_options["ctl00$MainContent$UcSearchFilters$AuditeeState$CheckableItems$45"] = self.auditee_state
 
         return FormRequest.from_response(
             response,
