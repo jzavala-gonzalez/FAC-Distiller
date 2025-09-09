@@ -8,6 +8,14 @@ docker-compose run --service-ports app
 and then go to localhost:8000/ or localhost:8000/admin
 
 To run the crawl, run this inside the 'app' container:
-scrapy crawl fac -a auditee_state=PR -o test.json
+scrapy crawl fac -a auditee_state=PR -o archivos_descargados.json
+O sea,
+docker-compose run --service-ports app scrapy crawl fac -a auditee_state=PR -o archivos_descargados.json
 
 Note: Falta ajustar el command
+
+Para contar cuantos PDFs y Excel hay, usa el terminal:
+```
+ls -lR ./fac-documents/*.pdf | wc -l
+ls -lR ./fac-documents/*.xlsx | wc -l
+```
